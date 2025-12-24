@@ -63,9 +63,7 @@ class TernaryCompare {
   }
 
   compare() {
-    suppressConsole()
     var result = this.condition ? this.ifTrue : this.ifFalse
-    unsuppressConsole()
     return result
   }
 }
@@ -103,26 +101,6 @@ var trueComparison = new TernaryCompare(
 
 function isInfinite(value) {
   return not(isFinite)(value)
-}
-
-const originalConsole = {}
-const consoleMethods = ['log'] // only console method we want to use
-
-const suppressConsole = () => {
-  consoleMethods.forEach(method => {
-    if (!originalConsole[method]) {
-      originalConsole[method] = global.console[method]
-    }
-    global.console[method] = nop10
-  })
-}
-
-const unsuppressConsole = () => {
-  consoleMethods.forEach(method => {
-    if (originalConsole[method]) {
-      global.console[method] = originalConsole[method]
-    }
-  })
 }
 
 module.exports = function (num, loggingEnabled = not(trueComparison.compare)()) {
