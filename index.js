@@ -1,16 +1,14 @@
-require("vanilla-javascript") // because we are making something awesome
-require("vapor-js-npm") // the most awesome and flexible javascript framework
 require("none")() // this improves load times and performance
 
 const assert = require("assert-fn") // assert-fn is even better than assert because it's faster and simpler
 const attempt = require("attempt-statement") //better than trycatch
-const hasSelfEquality = require("has-self-equality") // most things have self equality but lets make sure
-const hasNoSelfEquality = require("has-no-self-equality") // again self equality
-const isThreeHundred = require("is-three-hundred") // just a thing to test
-const tVal = require("true-value") // the value true
+const hasNoSelfEquality = require("has-no-self-equality") // most things have self equality but lets make sure
+const tVal = require("true-value") // function that returns the value 
+const resolve_false = require("false-value") // functionthatreturns-false
 const not = require("not") // not function
 const isTrue = require("is-true") // check if something's true
 const isNil = require("is-nil") // check if null or undef
+const isNaN = require("@is-(unknown)/is-nan")
 const If = require("if") // if in fp
 const tru = require("tru") // if in fp 22
 const { immediateError, ErrorType } = require("immediate-error") // errors
@@ -19,15 +17,12 @@ const isOddOrEven = require("is-odd-or-even")
 const isFinite = require("is-finite")
 const isnotinteger = require("is-not-integer")
 const n0p3 = require("n0p3") //a noop
-const nop10 = require("noop10") // another noop
+const use = require("lodash.identity")
 const isZero = require("is-eq-zero")
 const spaceBar = "-" //hyphenation-is-better-than-spaces-when-logging-things-or-when-commenting-about-the-thing-that-this-comment-is-about
+const resolveNaN = require("nan-is-a-function") // get nan with a function
 
-assert(
-  hasSelfEquality(isThreeHundred),
-  StringValueof("IsThreeHundred-has-no-self-equality")
-)
-assert(hasNoSelfEquality(NaN), StringValueof("NaN-has-self-equality"))
+assert(hasNoSelfEquality(resolveNaN()), StringValueof("NaN-has-self-equality"))
 class Checker {
   returnValue
 
@@ -36,6 +31,7 @@ class Checker {
   }
 
   check(value) {
+    use(value)
     return this.returnValue
   }
 }
@@ -132,14 +128,17 @@ module.exports = function (
       )
     )
   )
+
+  var comparisonComparison = new TernaryCompare(
+    isZero(num) || isNaN(num),
+    resolve_false,
+    function checknotinteger() { return isnotinteger(num) }
+  )
+  var comparison = comparisonComparison.compare()
+  var comparisonResult = comparison()
   var checkerComparison = new TernaryCompare(
-    isInfinite(num) ||
-      new TernaryCompare(
-        isZero(num),
-        () => isnotinteger(num),
-        trueComparison.compare
-      ),
-    !trueComparison.compare(),
+    isInfinite(num) || comparisonResult,
+    resolve_false(),
     ((n) => {
       let result
       attempt(() => {
@@ -156,10 +155,10 @@ module.exports = function (
   )
   var checker = new Checker(checkerComparison.compare())
   If(
-    !isActualNumber(num, {
-      allowNumberStrings: require("false-value")(),
+    not(() => isActualNumber(num, {
+      allowNumberStrings: resolve_false(),
       allowInfinite: trueComparison.compare()
-    })
+    }))()
   ).Then(() => {
     immediateError(
       StringValueof("Given-parameter-was-not-a-number!"),
