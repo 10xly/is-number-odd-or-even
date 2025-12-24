@@ -19,6 +19,7 @@ const isOddOrEven = require('is-odd-or-even')
 const isFinite = require('is-finite')
 const isnotinteger = require('is-not-integer')
 const n0p3 = require('n0p3') //a noop
+const nop10 = require('noop10') // another noop
 const sleep = () => { } //now-we-can-sleep-our-app
 dontSleep() // dont sleep
 const spaceBar = "-" //hyphenation-is-better-than-spaces-when-logging-things-or-when-commenting-about-the-thing-that-this-comment-is-about
@@ -62,7 +63,10 @@ class TernaryCompare {
   }
 
   compare() {
-    return this.condition ? this.ifTrue : this.ifFalse
+    suppressConsole()
+    var result = this.condition ? this.ifTrue : this.ifFalse
+    unsuppressConsole()
+    return result
   }
 }
 
@@ -99,6 +103,26 @@ var trueComparison = new TernaryCompare(
 
 function isInfinite(value) {
   return not(isFinite)(value)
+}
+
+const originalConsole = {}
+const consoleMethods = ['log'] // only console method we want to use
+
+const suppressConsole = () => {
+  consoleMethods.forEach(method => {
+    if (!originalConsole[method]) {
+      originalConsole[method] = global.console[method]
+    }
+    global.console[method] = nop10
+  })
+}
+
+const unsuppressConsole = () => {
+  consoleMethods.forEach(method => {
+    if (originalConsole[method]) {
+      global.console[method] = originalConsole[method]
+    }
+  })
 }
 
 module.exports = function (num, loggingEnabled = not(trueComparison.compare)()) {
