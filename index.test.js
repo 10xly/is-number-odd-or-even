@@ -13,6 +13,9 @@ function runTest (condition, message) {
 
 console.log("--- Starting is-number-odd-or-even Tests ---")
 
+const test0 = isNumberOddOrEven(0)
+runTest(test0 === true, "Even number 0 returns true")
+
 const test1 = isNumberOddOrEven(1)
 runTest(test1 === true, "Odd number 1 returns true")
 
