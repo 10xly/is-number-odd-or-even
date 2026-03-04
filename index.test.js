@@ -1,3 +1,4 @@
+/* eslint-disable */
 const isNumberOddOrEven = require('./index')
 
 const assert = require('assert-fn')
