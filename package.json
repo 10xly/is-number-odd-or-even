@@ -37,5 +37,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tj-commits/is-number-odd-or-even.git"
+  },
+  "devDependencies": {
+    "@10xly/eslint-config": "*",
+    "eslint": "^9.39.3"
   }
 }
