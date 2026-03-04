@@ -1,6 +1,6 @@
 {
   "name": "is-number-odd-or-even",
-  "version": "13.7.4",
+  "version": "13.7.5",
   "description": "Check if a number is odd or even. If a number is odd or if the number is even it will return true.",
   "main": "index.js",
   "scripts": {
